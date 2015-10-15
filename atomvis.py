@@ -27,7 +27,7 @@ def Init(Pos, L = None,
          BoxColor = v.color.blue, BackColor = v.color.white,
          DisplayFreq = 0.1):
     """Initializes a 3D visualization window.
-Input:
+    Input:
     Pos: (N,3) numpy array of atomic positions
     L: scalar or vector of box lengths
     AtomColor: N-length list of (R,G,B) tuples
@@ -40,7 +40,7 @@ Input:
     BoxColor: (R,G,B) tuple color for box; use None for no box
     BackColor: (R,G,B) tuple color for background
     DisplayFreq: frequency with which to update the display, in s
-"""
+    """
     global BoxL, SphereList, BoxList, Frequency, Initialized
 
     # save box length

@@ -11,7 +11,7 @@ def mcexch(npart, part_pos_array, beta,  en, vir, attempt,
     attempt += 1
     vol = box_length**3
     rhoo = npart/vol
-    # select to add of delete a particle
+    # select to add or delete a particle
     if np.random.random() < 0.5:
         # add a particle at a random position
         xn = np.random.random()*box_length

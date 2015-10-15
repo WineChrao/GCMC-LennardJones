@@ -59,7 +59,7 @@ def eneri(npart, part_pos_array, i, jb, box_length, rc2, sigma2, epsilon4, epsil
             elif dz < -box_length/2.0:
                 dz += box_length
             r2 = dx*dx + dy*dy + dz*dz
-            # calculate energy and virial pair i,j
+            # calculate energy and virial of pair i,j
             if r2 > 0.0:
                 enij, virij = ener(r2, rc2, sigma2, epsilon4, epsilon48, shift_pot, ecut)
                 en += enij

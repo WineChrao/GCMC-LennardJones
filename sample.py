@@ -3,7 +3,6 @@ __author__ = 'maurizio'
 
 
 def sample(icycl, en, vir, npart, box_length, beta, tail_corr, rc, sigma, epsilon4):
-    # writes quantities to file
     if npart != 0:
         enp = en/float(npart)
         vol = box_length**3

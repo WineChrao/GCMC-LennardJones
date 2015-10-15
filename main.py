@@ -77,8 +77,8 @@ def calc(reservoir_pressure):
 
     part_pos_array = lattice.lattice(box_length, npart)
     press_list = []
-    en_list=[]
-    rho_list= []
+    en_list =[]
+    rho_list = []
     np.random.seed(i_seed)
 
     if shift_pot:
@@ -91,7 +91,7 @@ def calc(reservoir_pressure):
                                  sigma_sq, epsilon4, epsilon48, shift_pot, e_cut,
                                  rho, tail_corr)
     nmoves = displ_attempts + exch_attempts
-
+    # display particles in real time
     atomvis.Clear()
     atomvis.Init(part_pos_array, box_length)
 
