@@ -1,6 +1,7 @@
-import ener
+# import ener
 import numpy as np
-
+import cener
+import time
 __author__ = 'maurizio'
 
 
@@ -10,7 +11,7 @@ def mcmove(npart, part_pos_array, dr, beta,  en, vir, attempt, nacc, box_length,
     # select a particle at random
     o = int(npart*np.random.random())  # +1
     #  calculate energy old configuration
-    eno, viro = ener.eneri(npart, part_pos_array, o, jb, box_length, rc2, sigma2, epsilon4, epsilon48, shift_pot, ecut)
+    eno, viro = cener.eneri(npart, part_pos_array, o, jb, box_length, rc2, sigma2, epsilon4, epsilon48, shift_pot, ecut)
     # give particle a random displacement and store previous position
     xo = part_pos_array[o, 0]
     yo = part_pos_array[o, 1]
@@ -20,9 +21,9 @@ def mcmove(npart, part_pos_array, dr, beta,  en, vir, attempt, nacc, box_length,
     part_pos_array[o, 1] += (np.random.random()-0.5)*dr
     part_pos_array[o, 2] += (np.random.random()-0.5)*dr
     # calculate energy new configuration:
-    enn, virn = ener.eneri(npart, part_pos_array, o, jb, box_length, rc2, sigma2, epsilon4, epsilon48, shift_pot, ecut)
+    enn, virn = cener.eneri(npart, part_pos_array, o, jb, box_length, rc2, sigma2, epsilon4, epsilon48, shift_pot, ecut)
     # acceptance test
-    if np.random.random() < np.exp(-beta*(enn-eno)):
+    if np.random.random() < min(1, np.exp(-beta*(enn-eno))):
         # accepted
         nacc += 1
         en = en + (enn-eno)

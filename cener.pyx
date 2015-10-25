@@ -1,12 +1,14 @@
 import cor
-__author__ = 'maurizio'
+import numpy as np
+cimport numpy as np
 
-
-def ener(r2, rc2, sigma2, epsilon4, epsilon48, shift_pot, ecut):
+def ener(double r2, double rc2, double sigma2, double epsilon4, double epsilon48, double shift_pot, double ecut):
     """
     calculates energy (en) and virial (vir) for given
     distance squared between (r2) two particles
     """
+    cdef double en, vir
+
     if r2 <= rc2:
         r2i = sigma2/r2
         r6i = r2i*r2i*r2i
@@ -22,9 +24,14 @@ def ener(r2, rc2, sigma2, epsilon4, epsilon48, shift_pot, ecut):
     return en, vir
 
 
-def totenerg(npart, part_pos_array, box_length, rc, sigma, rc2, sigma2, epsilon4, epsilon48, shift_pot, ecut, tail_corr):
+def totenerg(int npart, np.ndarray[np.float_t, ndim=2] part_pos_array, double box_length, double rc,
+             double sigma, double rc2, double sigma2, double epsilon4,
+             double epsilon48, int shift_pot, double ecut, int tail_corr):
+    cdef double en, vir, eni, viri, new_rho
+    cdef int i, jb
     en = 0.0
     vir = 0.0
+    new_rho = 0.0
     for i in range(npart):
         jb = i + 1
         # calculate energy particle i with particle j=jb,npart
@@ -37,7 +44,12 @@ def totenerg(npart, part_pos_array, box_length, rc, sigma, rc2, sigma2, epsilon4
     return en, vir, new_rho
 
 
-def eneri(npart, part_pos_array, i, jb, box_length, rc2, sigma2, epsilon4, epsilon48, shift_pot, ecut):
+def eneri(npart, np.ndarray[np.float_t, ndim=2] part_pos_array, int i, int jb,
+          double box_length, double rc2, double sigma2, double epsilon4,
+          double epsilon48, int shift_pot, double ecut):
+    cdef double en, vir, enij, virij
+    cdef int j
+    cdef double dx, dy, dz
     en = 0.0
     vir = 0.0
     for j in range(jb, npart):
